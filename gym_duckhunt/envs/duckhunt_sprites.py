@@ -7,6 +7,8 @@ from numpy.random import randint, choice
 from pygame.rect import Rect
 from pygame.sprite import Sprite
 
+from gym_duckhunt import ASSETS_PATH
+
 duck_points = {"blue": 25, "red": 50, "black": 75}
 duck_directions = {"west": -1, "east": 1}
 duck_altitude = {"straight": 0, "up": -1}
@@ -31,7 +33,7 @@ class Gun(Sprite):
         self.height = height
         self.move_amount = move_amount
 
-        self.image = pygame.image.load(os.path.join('assets', 'sprites', 'crosshair.png')).convert_alpha()
+        self.image = pygame.image.load(os.path.join(ASSETS_PATH, "sprites", "crosshair.png")).convert_alpha()
         self.image = pygame.transform.scale(self.image, (35, 35))
         rect = self.image.get_rect()
         self.rect = Rect(rect.left + 5, rect.top + 5, rect.width - 10, rect.height - 10).move(width // 2, height // 2)
@@ -171,25 +173,25 @@ class Duck(Sprite):
         pass
 
     def fetch_sprites(self, color):
-        self.fly_northeast = [pygame.image.load(os.path.join("assets", "sprites", color, "duck1.png")).convert(),
-                              pygame.image.load(os.path.join("assets", "sprites", color, "duck2.png")).convert(),
-                              pygame.image.load(os.path.join("assets", "sprites", color, "duck3.png")).convert()]
+        self.fly_northeast = [pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck1.png")).convert(),
+                              pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck2.png")).convert(),
+                              pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck3.png")).convert()]
 
-        self.fly_east = [pygame.image.load(os.path.join("assets", "sprites", color, "duck4.png")).convert(),
-                         pygame.image.load(os.path.join("assets", "sprites", color, "duck5.png")).convert(),
-                         pygame.image.load(os.path.join("assets", "sprites", color, "duck6.png")).convert()]
+        self.fly_east = [pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck4.png")).convert(),
+                         pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck5.png")).convert(),
+                         pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck6.png")).convert()]
 
-        self.fly_northwest = [pygame.image.load(os.path.join("assets", "sprites", color, "duck7.png")).convert(),
-                              pygame.image.load(os.path.join("assets", "sprites", color, "duck8.png")).convert(),
-                              pygame.image.load(os.path.join("assets", "sprites", color, "duck9.png")).convert()]
+        self.fly_northwest = [pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck7.png")).convert(),
+                              pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck8.png")).convert(),
+                              pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck9.png")).convert()]
 
-        self.fly_west = [pygame.image.load(os.path.join("assets", "sprites", color, "duck10.png")).convert(),
-                         pygame.image.load(os.path.join("assets", "sprites", color, "duck11.png")).convert(),
-                         pygame.image.load(os.path.join("assets", "sprites", color, "duck12.png")).convert()]
+        self.fly_west = [pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck10.png")).convert(),
+                         pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck11.png")).convert(),
+                         pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck12.png")).convert()]
 
-        self.die_ = [pygame.image.load(os.path.join("assets", "sprites", color, "duck_die1.png")).convert(),
-                     pygame.image.load(os.path.join("assets", "sprites", color, "duck_die2.png")).convert(),
-                     pygame.image.load(os.path.join("assets", "sprites", color, "duck_die3.png")).convert()]
+        self.die_ = [pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck_die1.png")).convert(),
+                     pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck_die2.png")).convert(),
+                     pygame.image.load(os.path.join(ASSETS_PATH, "sprites", color, "duck_die3.png")).convert()]
 
         for item in self.fly_northeast + self.fly_east + self.fly_northwest + self.fly_west + self.die_:
             item.set_colorkey((163, 239, 165))

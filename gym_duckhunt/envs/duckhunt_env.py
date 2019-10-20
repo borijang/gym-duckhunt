@@ -5,6 +5,7 @@ import numpy as np
 import pygame
 from gym import spaces
 
+from gym_duckhunt import ASSETS_PATH
 from gym_duckhunt.envs.duckhunt_sprites import Move, Gun, Duck
 
 
@@ -27,11 +28,12 @@ class DuckHuntEnv(gym.Env):
 
         pygame.display.set_caption('DuckHunt-v0')
         self.screen = pygame.display.set_mode((self.width, self.height))
+
         if not self.demo:
             pygame.display.iconify()
 
-        self.background = pygame.image.load(os.path.join("assets", "sprites", "background.png")).convert()
-        self.foreground = pygame.image.load(os.path.join("assets", "sprites", "foreground.png")).convert()
+        self.background = pygame.image.load(os.path.join(ASSETS_PATH, "sprites", "background.png")).convert()
+        self.foreground = pygame.image.load(os.path.join(ASSETS_PATH, "sprites", "foreground.png")).convert()
         self.foreground.set_colorkey((9, 207, 252))
 
         self.gun = Gun(self.width, self.height, self.move_amount)
@@ -86,10 +88,27 @@ class DuckHuntEnv(gym.Env):
     def reset(self):
         self.seconds_left = 60
         self.total_score = 0
+
         self.gun = Gun(self.width, self.height, self.move_amount)
         self.ducks.empty()
 
         pygame.init()
+        pygame.display.set_caption('DuckHunt-v0')
+        self.screen = pygame.display.set_mode((self.width, self.height))
+
+        if not self.demo:
+            pygame.display.iconify()
+
+        self.background = pygame.image.load(os.path.join(ASSETS_PATH, "sprites", "background.png")).convert()
+        self.foreground = pygame.image.load(os.path.join(ASSETS_PATH, "sprites", "foreground.png")).convert()
+        self.foreground.set_colorkey((9, 207, 252))
+
+        self.gun = Gun(self.width, self.height, self.move_amount)
+        self.ducks = pygame.sprite.Group()
+        self.start_time = pygame.time.get_ticks()
+        self.previous_spawn_time = 0
+
+        return pygame.surfarray.array3d(self.blit(self.screen))
 
     def render(self, mode='human', close=False):
         if self.demo:
